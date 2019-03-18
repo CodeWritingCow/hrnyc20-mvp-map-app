@@ -35,7 +35,7 @@
 
         let nypdData;
 
-        fetch('https://data.cityofnewyork.us/resource/5ucz-vwe8.json')
+        fetch('https://data.cityofnewyork.us/resource/5ucz-vwe8.json?statistical_murder_flag=true')
             .then((res) => {
                 return res.json();
             })
@@ -43,6 +43,12 @@
                 // console.log(JSON.stringify(myJson));
                 nypdData = JSON.stringify(myJson);
                 // console.log('nypdData fetched: ', nypdData);
+                myJson.forEach((crime) => {
+                    L.marker([crime.latitude, crime.longitude]).addTo(nycMap);
+                    // console.log([crime.latitude, crime.longitude]);
+                    
+                })
+                
             });
 
     </script>
