@@ -32,6 +32,19 @@
             maxZoom: 17,
             minZoom: 1
         }).addTo(nycMap);
+
+        let nypdData;
+
+        fetch('https://data.cityofnewyork.us/resource/5ucz-vwe8.json')
+            .then((res) => {
+                return res.json();
+            })
+            .then((myJson) => {
+                // console.log(JSON.stringify(myJson));
+                nypdData = JSON.stringify(myJson);
+                // console.log('nypdData fetched: ', nypdData);
+            });
+
     </script>
     
 </body>
