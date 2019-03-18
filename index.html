@@ -54,11 +54,11 @@
                         <h5>${crime.boro}</h5>
                         <p>${crime.location_desc || ''}</p>
                         <h5>Victim</h5>
-                        <p>Sex: ${crime.vic_sex}</p>
+                        <p>Sex: ${crime.vic_sex === 'M' ? 'Male' : 'Female'}</p>
                         <p>Age: ${crime.vic_age_group}</p>
                         <p>Race: ${crime.vic_race}</p>
                         <h5>Suspect</h5>
-                        <p>Sex: ${crime.perp_sex || 'Unknown'}</p>
+                        <p>Sex: ${getGender(crime.perp_sex)}</p>
                         <p>Age: ${crime.perp_age_group || 'Unknown'}</p>
                         <p>Race: ${crime.perp_race || 'Unknown'}</p>                        
                         `);
@@ -67,6 +67,17 @@
                 })
                 
             });
+            let getGender = function (gender) {
+                if (!gender) {
+                    return 'Unknown';
+                }
+                if (gender === 'M') {
+                    return 'Male';
+                } 
+                if (gender === 'F') {
+                    return 'Female';
+                }
+            }
 
     </script>
     
