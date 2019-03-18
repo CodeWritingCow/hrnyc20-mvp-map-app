@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>NYC Homicide Map</title>
+    <title>NYC Gun Murder Map</title>
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
     integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
     crossorigin=""/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.1.0/dist/css/leaflet.extra-markers.min.css">
 
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
    integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
    crossorigin=""></script>
+   <script src="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.1.0/dist/js/leaflet.extra-markers.min.js"></script>
  
     <style>
         #map {
@@ -22,58 +25,8 @@
 </head>
 <body>
     <div id="map"></div>
-
-    <script>
-        let nycMap = L.map('map').setView([40.75, -73.98], 11);
-
-        L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
-        {
-            attribution: 'Moo',
-            maxZoom: 17,
-            minZoom: 1
-        }).addTo(nycMap);
-
-        let nypdData;
-
-        fetch('https://data.cityofnewyork.us/resource/5ucz-vwe8.json?statistical_murder_flag=true')
-            .then((res) => {
-                return res.json();
-            })
-            .then((myJson) => {
-                nypdData = JSON.stringify(myJson);
-                myJson.forEach((crime) => {
-                    L.marker([crime.latitude, crime.longitude])
-                     .addTo(nycMap)
-                     .bindPopup(`
-                        <h3>${crime.occur_date}</h3>
-                        <hr/>
-                        <h5>${crime.occur_time}</h5>
-                        <h5>${crime.boro}</h5>
-                        <p>${crime.location_desc || ''}</p>
-                        <h5>Victim</h5>
-                        <p>Sex: ${getGender(crime.vic_sex)}</p>
-                        <p>Age: ${crime.vic_age_group}</p>
-                        <p>Race: ${crime.vic_race}</p>
-                        <h5>Suspect</h5>
-                        <p>Sex: ${getGender(crime.perp_sex)}</p>
-                        <p>Age: ${crime.perp_age_group || 'Unknown'}</p>
-                        <p>Race: ${crime.perp_race || 'Unknown'}</p>                        
-                        `);                    
-                })
-                
-            });
-            let getGender = function (gender) {
-                if (!gender) {
-                    return 'Unknown';
-                }
-                if (gender === 'M') {
-                    return 'Male';
-                } 
-                if (gender === 'F') {
-                    return 'Female';
-                }
-            }
-    </script>
+    <!-- <div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
+    <script src="app.js"></script>
     
 </body>
 </html>
