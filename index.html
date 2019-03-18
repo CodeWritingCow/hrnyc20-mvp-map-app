@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>NYC Homicide Map</title>
+    <title>NYC Gun Murder Map</title>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
@@ -26,71 +26,7 @@
 <body>
     <div id="map"></div>
     <!-- <div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
-
-    <script>
-        let nycMap = L.map('map').setView([40.75, -73.98], 11);
-        let gunIcon = L.icon({
-            iconUrl: 'gun.png',
-            iconSize: [24, 24]
-        });
-
-        let skullMarker = L.ExtraMarkers.icon({
-            icon: 'fa-skull-crossbones',
-            markerColor: 'black',
-            shape: 'circle',
-            prefix: 'fa'
-        });
-
-        L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
-        {
-            attribution: 'Moo',
-            maxZoom: 17,
-            minZoom: 1
-        }).addTo(nycMap);
-
-        let nypdData;
-
-        fetch('https://data.cityofnewyork.us/resource/5ucz-vwe8.json?statistical_murder_flag=true')
-            .then((res) => {
-                return res.json();
-            })
-            .then((myJson) => {
-                nypdData = JSON.stringify(myJson);
-                myJson.forEach((crime) => {
-                    // L.marker([crime.latitude, crime.longitude], {icon: gunIcon}) 
-                    L.marker([crime.latitude, crime.longitude], {icon: skullMarker}) 
-                    // L.marker([crime.latitude, crime.longitude]) // Replace with code above to show guns as map markers
-                     .addTo(nycMap)
-                     .bindPopup(`
-                        <h3>${crime.occur_date}</h3>
-                        <hr/>
-                        <h5>${crime.occur_time}</h5>
-                        <h5>${crime.boro}</h5>
-                        <p>${crime.location_desc || ''}</p>
-                        <h5>Victim</h5>
-                        <p>Sex: ${getGender(crime.vic_sex)}</p>
-                        <p>Age: ${crime.vic_age_group}</p>
-                        <p>Race: ${crime.vic_race}</p>
-                        <h5>Suspect</h5>
-                        <p>Sex: ${getGender(crime.perp_sex)}</p>
-                        <p>Age: ${crime.perp_age_group || 'Unknown'}</p>
-                        <p>Race: ${crime.perp_race || 'Unknown'}</p>                        
-                        `);                    
-                })
-                
-            });
-            let getGender = function (gender) {
-                if (!gender) {
-                    return 'Unknown';
-                }
-                if (gender === 'M') {
-                    return 'Male';
-                } 
-                if (gender === 'F') {
-                    return 'Female';
-                }
-            }
-    </script>
+    <script src="app.js"></script>
     
 </body>
 </html>
