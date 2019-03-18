@@ -40,13 +40,10 @@
                 return res.json();
             })
             .then((myJson) => {
-                // console.log(JSON.stringify(myJson));
                 nypdData = JSON.stringify(myJson);
-                // console.log('nypdData fetched: ', nypdData);
                 myJson.forEach((crime) => {
                     L.marker([crime.latitude, crime.longitude])
                      .addTo(nycMap)
-                    //  .bindPopup(`${typeof crime}`); -> object
                      .bindPopup(`
                         <h3>${crime.occur_date}</h3>
                         <hr/>
@@ -54,16 +51,14 @@
                         <h5>${crime.boro}</h5>
                         <p>${crime.location_desc || ''}</p>
                         <h5>Victim</h5>
-                        <p>Sex: ${crime.vic_sex === 'M' ? 'Male' : 'Female'}</p>
+                        <p>Sex: ${getGender(crime.vic_sex)}</p>
                         <p>Age: ${crime.vic_age_group}</p>
                         <p>Race: ${crime.vic_race}</p>
                         <h5>Suspect</h5>
                         <p>Sex: ${getGender(crime.perp_sex)}</p>
                         <p>Age: ${crime.perp_age_group || 'Unknown'}</p>
                         <p>Race: ${crime.perp_race || 'Unknown'}</p>                        
-                        `);
-                    // console.log([crime.latitude, crime.longitude]);
-                    
+                        `);                    
                 })
                 
             });
@@ -78,7 +73,6 @@
                     return 'Female';
                 }
             }
-
     </script>
     
 </body>
