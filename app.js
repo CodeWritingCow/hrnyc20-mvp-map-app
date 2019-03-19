@@ -1,23 +1,23 @@
 let nycMap = L.map('map').setView([40.75, -73.98], 11);
 
 let gunIcon = L.icon({
-iconUrl: 'gun.png',
-iconSize: [24, 24]
+    iconUrl: 'gun.png',
+    iconSize: [24, 24]
 });
 
 let skullMarker = L.ExtraMarkers.icon({
-icon: 'fa-skull-crossbones',
-markerColor: 'black',
-shape: 'circle',
-prefix: 'fa'
+    icon: 'fa-skull-crossbones',
+    markerColor: 'black',
+    shape: 'circle',
+    prefix: 'fa'
 });
 
 L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
 {
-attribution: 'Moo',
-maxZoom: 17,
-minZoom: 1
-}).addTo(nycMap);
+    attribution: 'NYPD Shooting Incident Data',
+    maxZoom: 17,
+    minZoom: 1
+    }).addTo(nycMap);
 
 let nypdData;
 
@@ -48,6 +48,8 @@ fetch('https://data.cityofnewyork.us/resource/5ucz-vwe8.json?statistical_murder_
                 <p>Race: ${crime.perp_race || 'Unknown'}</p>                        
                 `);                    
         });
+        // console.log('Total murders by gun, 2018:', myJson.length);
+        document.getElementById('deathCounter').textContent = JSON.parse(nypdData).length;
 });
 
 let getGender = function (gender) {
