@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>NYC Gun Murder Map</title>
+    <title>NYC Gun Homicide Map</title>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
@@ -21,11 +21,16 @@
         #map {
             height: 600px;
         }
+
+        #deathCounter {
+            color: red;
+            font-family: Arial, Helvetica, sans-serif;
+        }
     </style>
 </head>
 <body>
+    <h1>Number of Gun Homicides in 2018: <span id="deathCounter"></span></h1>
     <div id="map"></div>
-    <!-- <div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> -->
     <script src="app.js"></script>
     
 </body>
