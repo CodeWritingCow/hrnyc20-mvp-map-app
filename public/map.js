@@ -23,13 +23,8 @@ let nypdData;
 
 fetch('/api/homicides')
     .then((response) => {
-        // console.log('response:', response.text());
         response.text().then((data) => {
-            // console.log('data:', data);
-            // console.log(typeof data); -> string
-                        
             JSON.parse(data).forEach((crime) => {
-                // console.log('crime:', crime);
                 
                 L.marker([crime.latitude, crime.longitude], {icon: skullMarker}) 
                     .addTo(nycMap)
@@ -49,9 +44,9 @@ fetch('/api/homicides')
                     <p>Race: ${crime.perp_race || 'Unknown'}</p>                        
                     `);                    
             });
+            
             document.getElementById('deathCounter').textContent = JSON.parse(data).length;
-        })
-        
+        });
         
 }).catch((err) => {
     console.log(err);

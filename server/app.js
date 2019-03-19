@@ -18,10 +18,9 @@ app.get('/', (req, res) => {
 
 app.get('/api/homicides', (req, res) => {
     controller.getNypdData()
-        .then(data => {            
-        // console.log(data);
-        res.send(data.data)
-    }).catch((err) => console.log(err));
+        .then(data => {
+            res.send(data.data)
+        }).catch((err) => console.log(err));
 });
 
 app.listen(port, function () {
