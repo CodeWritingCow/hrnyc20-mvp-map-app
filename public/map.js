@@ -1,4 +1,23 @@
-let nycMap = L.map('map').setView([40.75, -73.98], 11);
+let baseMap = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
+    {
+        attribution: 'NYPD Shooting Incident Data',
+        maxZoom: 17,
+        minZoom: 1
+    });
+
+let openStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+    });
+
+let baseMaps = {
+    "Basemap": baseMap,
+    "OpenStreetMap": openStreetMap
+}
+
+let nycMap = L.map('map', {
+    layers: [baseMap]
+}).setView([40.75, -73.98], 11);
 
 let gunIcon = L.icon({
     iconUrl: 'gun.png',
@@ -12,14 +31,6 @@ let skullMarker = L.ExtraMarkers.icon({
     prefix: 'fa'
 });
 
-L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
-{
-    attribution: 'NYPD Shooting Incident Data',
-    maxZoom: 17,
-    minZoom: 1
-    }).addTo(nycMap);
-
-let nypdData;
 
 fetch('/api/homicides')
     .then((response) => {
@@ -44,13 +55,13 @@ fetch('/api/homicides')
                     <p>Race: ${crime.perp_race || 'Unknown'}</p>                        
                     `);                    
             });
-            
             document.getElementById('deathCounter').textContent = JSON.parse(data).length;
         });
-        
-}).catch((err) => {
-    console.log(err);
-});
+    }).catch((err) => {
+        console.log(err);
+    });
+
+L.control.layers(baseMaps).addTo(nycMap);
 
 let getGender = function (gender) {
     if (!gender) {
