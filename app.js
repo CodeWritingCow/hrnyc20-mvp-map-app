@@ -28,9 +28,7 @@ fetch('https://data.cityofnewyork.us/resource/5ucz-vwe8.json?statistical_murder_
     .then((myJson) => {
         nypdData = JSON.stringify(myJson);
         myJson.forEach((crime) => {
-            // L.marker([crime.latitude, crime.longitude], {icon: gunIcon}) 
             L.marker([crime.latitude, crime.longitude], {icon: skullMarker}) 
-            // L.marker([crime.latitude, crime.longitude]) // Replace with code above to show guns as map markers
                 .addTo(nycMap)
                 .bindPopup(`
                 <h3>${crime.occur_date}</h3>
@@ -48,7 +46,6 @@ fetch('https://data.cityofnewyork.us/resource/5ucz-vwe8.json?statistical_murder_
                 <p>Race: ${crime.perp_race || 'Unknown'}</p>                        
                 `);                    
         });
-        // console.log('Total murders by gun, 2018:', myJson.length);
         document.getElementById('deathCounter').textContent = JSON.parse(nypdData).length;
 });
 
