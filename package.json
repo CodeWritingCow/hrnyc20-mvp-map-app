@@ -2,8 +2,9 @@
   "name": "hrnyc20-mvp-map-app",
   "version": "1.0.0",
   "description": "NYC Gun Homicide Map",
-  "main": "app.js",
   "scripts": {
+    "start": "node server/app.js",
+    "start-dev": "nodemon server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
