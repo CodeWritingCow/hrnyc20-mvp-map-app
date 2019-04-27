@@ -2,7 +2,7 @@
 
 
 # NYC Gun Homicide Map 2018
-This repository contains the source for a Leaflet.js map displaying locations of gun homicides in New York City in 2018.
+This repository contains the source for a Leaflet.js [map](https://nyc-gun-homicide-map.herokuapp.com/) displaying locations of gun homicides in New York City in 2018.
 
 Each map marker contains an incident date, location and demographic information of victim and suspect. Data comes from an NYPD dataset on shooting incidents.
 
@@ -14,7 +14,7 @@ This map was a MVP project for Hack Reactor NYC Cohort 20.
 
 #### External API Key
 
-- This project makes use of Socrata Open Data API to access the city's dataset. To get an API key, visit: https://dev.socrata.com/docs/app-tokens.html
+- This project uses Socrata Open Data API to access the city's dataset. To get an API key, visit: https://dev.socrata.com/docs/app-tokens.html
 - A Socrata account is required to get an API key. To open an account, sign up: https://opendata.socrata.com/signup
 
 #### Key Dependencies
