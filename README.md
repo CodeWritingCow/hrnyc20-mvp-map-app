@@ -1,8 +1,8 @@
-![NYC Gun Homicide Map 2018 Screenshot](https://github.com/CodeWritingCow/hrnyc20-mvp-map-app/blob/master/screenshot.gif)
+![NYC Gun Homicide Map Screenshot](https://github.com/CodeWritingCow/hrnyc20-mvp-map-app/blob/master/screenshot.gif)
 
 
-# NYC Gun Homicide Map 2018
-This repository contains the source for a Leaflet.js [map](https://nyc-gun-homicide-map.herokuapp.com/) displaying locations of gun homicides in New York City in 2018.
+# NYC Gun Homicide Map
+This repository contains the source for a Leaflet.js [map](https://nyc-gun-homicide-map.herokuapp.com/) displaying locations of gun homicides in New York City for the current year.
 
 Each map marker contains an incident date, location and demographic information of victim and suspect. Data comes from an NYPD dataset on shooting incidents.
 
@@ -24,6 +24,7 @@ This map was a MVP project for Hack Reactor NYC Cohort 20.
 
 ## TODO
 - When user clicks a marker, the app displays URLs to news stories related to the incident.
+- Add option to display gun homicides from different years.
 
 ## Author
 **Gary Pang** - [codewritingcow.com](http://codewritingcow.com)
