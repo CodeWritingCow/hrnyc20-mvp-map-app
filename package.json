@@ -12,7 +12,7 @@
     "url": "git+https://github.com/CodeWritingCow/hrnyc20-mvp-map-app.git"
   },
   "author": "Gary Pang",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/CodeWritingCow/hrnyc20-mvp-map-app/issues"
   },
