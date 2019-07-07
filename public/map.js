@@ -31,6 +31,7 @@ let skullMarker = L.ExtraMarkers.icon({
     prefix: 'fa'
 });
 
+let homicideMarkers = new L.LayerGroup().addTo(nycMap);
 
 fetch('/api/homicides')
     .then((response) => {
@@ -38,7 +39,6 @@ fetch('/api/homicides')
             JSON.parse(data).forEach((crime) => {
                 
                 L.marker([crime.latitude, crime.longitude], {icon: skullMarker}) 
-                    .addTo(nycMap)
                     .bindPopup(`
                     <h3>${crime.occur_date}</h3>
                     <hr/>
@@ -53,7 +53,7 @@ fetch('/api/homicides')
                     <p>Sex: ${getGender(crime.perp_sex)}</p>
                     <p>Age: ${crime.perp_age_group || 'Unknown'}</p>
                     <p>Race: ${crime.perp_race || 'Unknown'}</p>                        
-                    `);                    
+                    `).addTo(homicideMarkers);                    
             });
             document.getElementById('deathCounter').textContent = JSON.parse(data).length;
         });
@@ -61,7 +61,7 @@ fetch('/api/homicides')
         console.log(err);
     });
 
-L.control.layers(baseMaps).addTo(nycMap);
+L.control.layers(baseMaps, {"Homicides": homicideMarkers}).addTo(nycMap);
 
 let getGender = function (gender) {
     if (!gender) {
