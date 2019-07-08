@@ -63,6 +63,24 @@ fetch('/api/homicides')
 
 L.control.layers(baseMaps, {"Homicides": homicideMarkers}).addTo(nycMap);
 
+
+// Add dropdown menu for selecting year
+let yearDropdown = L.control({position: 'topright'});
+
+yearDropdown.onAdd = function () {
+    let div = L.DomUtil.create('div', 'year menu');
+    let options = '';
+    let currentYear = parseInt(Date().split(' ')[3]);
+    
+    for(let year = currentYear; year >= 2006 ; year--) {
+        options += `<option>${year}</option>`
+    }
+    div.innerHTML = `<select>${options}</select>`;
+    div.firstChild.onblclick = L.DomEvent.stopPropagation;
+    return div;
+}
+yearDropdown.addTo(nycMap);
+
 let getGender = function (gender) {
     if (!gender) {
         return 'Unknown';
@@ -74,3 +92,10 @@ let getGender = function (gender) {
         return 'Female';
     }
 }
+
+// Listen to changes in dropdown menu
+document.querySelector('select')
+        .addEventListener('change', (e) => {
+            console.log(e.target.value);
+            // homicideMarkers.clearLayers(); // clear all map markers
+});
