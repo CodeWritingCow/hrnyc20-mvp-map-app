@@ -32,21 +32,25 @@ let skullMarker = L.ExtraMarkers.icon({
 });
 
 let homicideMarkers = new L.LayerGroup().addTo(nycMap);
-
-fetch('/api/homicides')
-    .then((response) => {
-        response.text().then((data) => {
-            JSON.parse(data).forEach((crime) => {
-                placeMarker(crime);
-            });
-            document.getElementById('deathCounter').textContent = JSON.parse(data).length;
-            updateYear();
-        });
-    }).catch((err) => {
-        console.log(err);
-    });
-
 L.control.layers(baseMaps, {"Homicides": homicideMarkers}).addTo(nycMap);
+
+const getHomicidesByYear = function(year) {
+    fetch(`/api/homicides/${year}`)
+        .then((response) => {
+            response.text().then((data) => {
+                let crimes = JSON.parse(data);
+                crimes.forEach((crime) => {
+                    placeMarker(crime);
+                });
+                updateDeathCount(crimes.length);
+                updateYear(year);
+            });
+        }).catch((err) => {
+            console.log(err);
+        });
+}
+
+getHomicidesByYear(2019);
 
 
 // Add dropdown menu for selecting year
@@ -102,21 +106,13 @@ const updateYear = function(year=Date().split(' ')[3]) {
     document.getElementById('year').textContent = year;
 }
 
+const updateDeathCount = function(deathCount) {
+    document.getElementById('deathCounter').textContent = deathCount;
+}
+
 // Listen to changes in dropdown menu
 document.querySelector('select')
         .addEventListener('change', (e) => {
             homicideMarkers.clearLayers(); // clear all map markers 
-
-            fetch(`/api/homicides/${e.target.value}`)
-                .then((response) => {
-                    response.text().then((data) => {
-                        JSON.parse(data).forEach((crime) => {
-                            placeMarker(crime);                                              
-                        });
-                        document.getElementById('deathCounter').textContent = JSON.parse(data).length;                        
-                        updateYear(e.target.value);
-                    });
-                }).catch((err) => {
-                    console.log(err);
-                });
+            getHomicidesByYear(e.target.value);
 });
