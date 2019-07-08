@@ -96,6 +96,35 @@ let getGender = function (gender) {
 // Listen to changes in dropdown menu
 document.querySelector('select')
         .addEventListener('change', (e) => {
-            console.log(e.target.value);
-            // homicideMarkers.clearLayers(); // clear all map markers
+
+            homicideMarkers.clearLayers(); // clear all map markers
+            
+            fetch(`/api/homicides/${e.target.value}`)
+                .then((response) => {
+                    response.text().then((data) => {
+                        JSON.parse(data).forEach((crime) => {
+                            
+                            L.marker([crime.latitude, crime.longitude], {icon: skullMarker}) 
+                                .bindPopup(`
+                                <h3>${crime.occur_date}</h3>
+                                <hr/>
+                                <h5>${crime.occur_time}</h5>
+                                <h5>${crime.boro}</h5>
+                                <p>${crime.location_desc || ''}</p>
+                                <h5>Victim</h5>
+                                <p>Sex: ${getGender(crime.vic_sex)}</p>
+                                <p>Age: ${crime.vic_age_group}</p>
+                                <p>Race: ${crime.vic_race}</p>
+                                <h5>Suspect</h5>
+                                <p>Sex: ${getGender(crime.perp_sex)}</p>
+                                <p>Age: ${crime.perp_age_group || 'Unknown'}</p>
+                                <p>Race: ${crime.perp_race || 'Unknown'}</p>                        
+                                `).addTo(homicideMarkers);                    
+                        });
+                        document.getElementById('deathCounter').textContent = JSON.parse(data).length;
+                        document.getElementById('year').textContent = e.target.value;
+                    });
+                }).catch((err) => {
+                    console.log(err);
+                });
 });
