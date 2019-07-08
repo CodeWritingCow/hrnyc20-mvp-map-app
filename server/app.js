@@ -23,6 +23,13 @@ app.get('/api/homicides', (req, res) => {
         }).catch((err) => console.log(err));
 });
 
+app.get(`/api/homicides/:year`, (req, res) => {
+    controller.getNypdData(req.params.year)
+        .then(data => {
+            res.send(data.data)
+        }).catch((err) => console.log(err));
+});
+
 app.listen(port, function () {
     console.log(`Listening on port ${port}`);
 });
