@@ -6,6 +6,8 @@ This repository contains the source for a Leaflet.js [map](https://nyc-gun-homic
 
 Each map marker contains an incident date, location and demographic information of victim and suspect. Data comes from an NYPD dataset on shooting incidents.
 
+A dropdown menu allows users to display gun homicides by year (2006 to present).
+
 The repository also contains the code for a Node.js server, which fetches incident data from the Socrata Open Data API. The server then returns the data to the map. The live server is hosted on Heroku.
 
 This map was a MVP project for Hack Reactor NYC Cohort 20.
@@ -24,7 +26,6 @@ This map was a MVP project for Hack Reactor NYC Cohort 20.
 
 ## TODO
 - When user clicks a marker, the app displays URLs to news stories related to the incident.
-- Add option to display gun homicides from different years.
 
 ## Author
 **Gary Pang** - [codewritingcow.com](http://codewritingcow.com)
