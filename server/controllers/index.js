@@ -1,5 +1,7 @@
 const token = process.env.API_TOKEN || require('../../config/token');
+const redisUrl = process.env.REDIS_URL || require('../../config/redisUrl');
 const axios = require('axios');
+const redis = require('redis').createClient(redisUrl);
 
 const getNypdData = function (year) {
     if (!year || year === Date().split(' ')[3]) {
