@@ -11,6 +11,17 @@ const getNypdData = function (year) {
     }
 }
 
+const getRedis = (req, res) => {
+    let {year} = req.params;
+    redis.get(year, (err, result) => {
+        if (result) {
+            res.send(result);
+        } else {
+            getNypdData(year);
+        }
+    })
+}
+
 module.exports = {
     getNypdData: getNypdData
 }
