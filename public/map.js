@@ -50,8 +50,9 @@ const getHomicidesByYear = function(year) {
         });
 }
 
-getHomicidesByYear(2019);
+let currentYear = new Date().getFullYear();
 
+getHomicidesByYear(currentYear);
 
 // Add dropdown menu for selecting year
 let yearDropdown = L.control({position: 'topright'});
@@ -59,7 +60,6 @@ let yearDropdown = L.control({position: 'topright'});
 yearDropdown.onAdd = function () {
     let div = L.DomUtil.create('div', 'year menu');
     let options = '';
-    let currentYear = parseInt(Date().split(' ')[3]);
     
     for(let year = currentYear; year >= 2006 ; year--) {
         options += `<option>${year}</option>`
