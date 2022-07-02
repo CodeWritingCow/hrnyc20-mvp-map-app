@@ -20,7 +20,8 @@
   "dependencies": {
     "axios": "^0.21.2",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-rate-limit": "^6.4.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
