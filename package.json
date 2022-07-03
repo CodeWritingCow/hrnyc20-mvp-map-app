@@ -3,9 +3,14 @@
   "version": "1.0.2",
   "description": "NYC Gun Homicide Map",
   "scripts": {
-    "start": "node server/app.js",
-    "start-dev": "nodemon server/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build-ts && npm run copy-static-assets",
+    "build-ts": "tsc",
+    "copy-static-assets": "ts-node copyStaticAssets.ts",
+    "start": "npm run serve",
+    "serve": "node build/server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-node": "nodemon build/server/app.js",
+    "watch-ts": "tsc -w"
   },
   "repository": {
     "type": "git",
@@ -27,6 +32,7 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/node": "^18.0.0",
+    "@types/shelljs": "^0.8.11",
     "nodemon": "^2.0.4",
     "shelljs": "^0.8.5",
     "ts-node": "^10.8.2",
