@@ -1,12 +1,11 @@
-const express = require('express');
-const app = express();
-const path = require('path');
-const cors = require('cors');
-const rateLimit = require('express-rate-limit');
+import express, { RequestHandler, NextFunction, Request, Response } from 'express';
+import path from 'path';
+import cors from 'cors';
+import rateLimit from 'express-rate-limit';
 
+const app = express();
 const controller = require('./controllers');
 let port = process.env.PORT || 3000;
-const token = process.env.API_TOKEN || require('../config/token');
 
 const limiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
@@ -14,8 +13,8 @@ const limiter = rateLimit({
 });
 
 // Helper function for applying middleware to specific paths
-const applyMiddleware = function (middleware, ...paths) {
-    return function (req, res, next) {
+const applyMiddleware = (middleware: RequestHandler, ...paths: string[]) => {
+    return (req: Request, res: Response, next: NextFunction) => {
         const pathCheck = paths.includes(req.path);
         pathCheck ? middleware(req, res, next) : next();
     };
@@ -34,19 +33,19 @@ app.get('/', (req, res) => {
 app.get('/api/homicides', (req, res) => {
     controller
         .getNypdData()
-        .then((data) => {
+        .then((data: any) => {
             res.send(data.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err: any) => console.log(err));
 });
 
 app.get(`/api/homicides/:year`, (req, res) => {
     controller
         .getNypdData(req.params.year)
-        .then((data) => {
+        .then((data: any) => {
             res.send(data.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err: any) => console.log(err));
 });
 
 app.listen(port, function () {
