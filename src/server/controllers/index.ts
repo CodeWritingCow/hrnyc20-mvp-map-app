@@ -1,8 +1,11 @@
-const token: string = process.env.API_TOKEN || require('../../../config/token');
 import axios from 'axios';
 
-const getNypdData = (year: string) => {
-    if (!year || year === Date().split(' ')[3]) {
+const token: string = process.env.API_TOKEN || require('../../../config/token');
+
+const currentYear: string = Date().split(' ')[3];
+
+const getMapData = (year: string = currentYear) => {
+    if (!year || year === currentYear) {
         return axios.get(
             `https://data.cityofnewyork.us/resource/5ucz-vwe8.json?statistical_murder_flag=Y&$$app_token=${token}`
         );
@@ -13,6 +16,4 @@ const getNypdData = (year: string) => {
     }
 };
 
-module.exports = {
-    getNypdData: getNypdData
-};
+export default getMapData;

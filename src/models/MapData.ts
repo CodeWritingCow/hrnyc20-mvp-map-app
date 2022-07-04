@@ -82,5 +82,6 @@ export enum Sex {
 }
 
 export enum StatisticalMurderFlag {
-    Y = 'Y'
+    Y = 'Y',
+    N = 'N'
 }

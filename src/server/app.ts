@@ -1,10 +1,16 @@
-import express, { RequestHandler, NextFunction, Request, Response } from 'express';
+import express, {
+    RequestHandler,
+    NextFunction,
+    Request,
+    Response
+} from 'express';
 import path from 'path';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
+import getMapData from './controllers';
 
 const app = express();
-const controller = require('./controllers');
+
 let port = process.env.PORT || 3000;
 
 const limiter = rateLimit({
@@ -26,23 +32,21 @@ app.use(express.static(__dirname + '/../public'));
 app.use(cors());
 app.use(applyMiddleware(limiter, '/'));
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.sendFile(path.join(__dirname + '/../index.html'));
 });
 
-app.get('/api/homicides', (req, res) => {
-    controller
-        .getNypdData()
-        .then((data: any) => {
+app.get('/api/homicides', (_req, res) => {
+    getMapData()
+        .then((data) => {
             res.send(data.data);
         })
         .catch((err: any) => console.log(err));
 });
 
 app.get(`/api/homicides/:year`, (req, res) => {
-    controller
-        .getNypdData(req.params.year)
-        .then((data: any) => {
+    getMapData(req.params.year)
+        .then((data) => {
             res.send(data.data);
         })
         .catch((err: any) => console.log(err));
