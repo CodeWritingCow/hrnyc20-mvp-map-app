@@ -28,7 +28,7 @@ This map was a MVP project for Hack Reactor NYC Cohort 20.
 - When user clicks a marker, the app displays URLs to news stories related to the incident.
 
 ## Author
-**Gary Pang** - [codewritingcow.com](http://codewritingcow.com)
+**Gary Pang** - [garypang.dev](https://garypang.dev)
 
 ## References
 - [NYPD Shooting Incident Data (Year To Date) Public Safety](https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Year-To-Date-/5ucz-vwe8) from NYPD and [NYC Open Data](https://opendata.cityofnewyork.us/)
